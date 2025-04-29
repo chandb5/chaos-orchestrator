@@ -1,0 +1,10 @@
+name: chaos
+description: chaos orchestrator
+runtime:
+  name: nodejs
+  options:
+    packagemanager: yarn
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: gcp-typescript
