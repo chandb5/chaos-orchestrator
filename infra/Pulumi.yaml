@@ -1,5 +1,5 @@
-name: chaos
-description: chaos orchestrator
+name: chaos-orchestra
+description: A minimal Kubernetes TypeScript Pulumi program
 runtime:
   name: nodejs
   options:
@@ -7,4 +7,4 @@ runtime:
 config:
   pulumi:tags:
     value:
-      pulumi:template: gcp-typescript
+      pulumi:template: kubernetes-typescript

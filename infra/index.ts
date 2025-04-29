@@ -1,10 +1,14 @@
-import * as pulumi from "@pulumi/pulumi";
-import * as gcp from "@pulumi/gcp";
+import * as k8s from "@pulumi/kubernetes";
 
-// Create a GCP resource (Storage Bucket)
-const bucket = new gcp.storage.Bucket("my-bucket", {
-    location: "US"
+const appLabels = { app: "nginx" };
+const deployment = new k8s.apps.v1.Deployment("nginx", {
+    spec: {
+        selector: { matchLabels: appLabels },
+        replicas: 1,
+        template: {
+            metadata: { labels: appLabels },
+            spec: { containers: [{ name: "nginx", image: "nginx" }] }
+        }
+    }
 });
-
-// Export the DNS name of the bucket
-export const bucketName = bucket.url;
+export const name = deployment.metadata.name;
