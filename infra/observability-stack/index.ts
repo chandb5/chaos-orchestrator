@@ -49,4 +49,40 @@ const prometheusService = new k8s.core.v1.Service("prometheus-svc", {
   },
 });
 
+const grafanaDeployment = new k8s.apps.v1.Deployment("grafana", {
+  metadata: { name: "grafana" },
+  spec: {
+    replicas: 1,
+    selector: { matchLabels: { app: "grafana" } },
+    template: {
+      metadata: { labels: { app: "grafana" } },
+      spec: {
+        containers: [{
+          name: "grafana",
+          image: "grafana/grafana:10.4.0",
+          ports: [{ containerPort: 3000 }],
+          env: [
+            { name: "GF_SECURITY_ADMIN_USER", value: "admin" },
+            { name: "GF_SECURITY_ADMIN_PASSWORD", value: "admin" },
+          ],
+        }],
+      },
+    },
+  },
+});
+
+
+const grafanaService = new k8s.core.v1.Service("grafana-svc", {
+  metadata: { name: "grafana" },
+  spec: {
+    type: "NodePort",
+    selector: { app: "grafana" },
+    ports: [{
+      port: 3000,
+      targetPort: 3000,
+      nodePort: 30030,
+    }],
+  },
+});
+
 export const prometheusUrl = prometheusService.status.loadBalancer?.ingress?.[0]?.hostname || "Use: minikube service prometheus --url";
