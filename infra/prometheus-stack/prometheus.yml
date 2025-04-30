@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'chaotic-app'
+    static_configs:
+      - targets: ['unstable-apis.default.svc.cluster.local:8000']
