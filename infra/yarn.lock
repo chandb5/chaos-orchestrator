@@ -378,6 +378,11 @@
     glob "^10.3.10"
     shell-quote "^1.6.1"
 
+"@pulumi/kubernetesx@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetesx/-/kubernetesx-0.1.6.tgz#61518ae6a7d37c17998561b8d5290546815bad1d"
+  integrity sha512-9VL4Yi4b4aLC/obBarJuNkm86kABByUZICYPSTdV396MGZtOc066o2brsB+kWVQcVfkYVXTPrpjIkAwBXXnzGw==
+
 "@pulumi/pulumi@^3.113.0", "@pulumi/pulumi@^3.142.0":
   version "3.165.0"
   resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.165.0.tgz#6063567f0e8d999d76930b7d06db3e701942bd95"
