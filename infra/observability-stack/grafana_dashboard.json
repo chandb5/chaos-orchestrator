@@ -114,7 +114,7 @@
                     "useBackend": false
                 }
             ],
-            "title": "Panel Title",
+            "title": "Total number of requests",
             "type": "timeseries"
         },
         {
@@ -808,13 +808,13 @@
         "list": []
     },
     "time": {
-        "from": "now-30m",
+        "from": "now-5m",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Chaotic App Observability",
     "uid": "chaotic-app-dashboard",
-    "version": 8,
+    "version": 9,
     "weekStart": ""
 }
