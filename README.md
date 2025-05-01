@@ -37,10 +37,10 @@ This platform simulates unpredictable scenarios in a Kubernetes environment, inc
 
 The following screenshots illustrate system behavior during chaos testing:
 
-![Dashboard 1](../../../Desktop/Screenshot%202025-05-01%20at%203.10.17%20AM.png)
+![Dashboard 1](./images/Screenshot%202025-05-01%20at%203.10.25 AM.png)
 *Request rates, latency metrics, and HTTP status code distribution.*
 
-![Dashboard 2](../../../Desktop/Screenshot%202025-05-01%20at%203.10.25%20AM.png)
+![Dashboard 2](./images/Screenshot%202025-05-01%20at%203.10.17 AM.png)
 *Health check success rates and artificial delay patterns.*
 
 ## Observations
