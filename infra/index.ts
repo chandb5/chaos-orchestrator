@@ -63,8 +63,13 @@ const chaosCronJob = new k8s.batch.v1.CronJob("chaos-cronjob", {
                   },
                   {
                     name: "DELAY_ITERATIONS",
-                    value: "150"
-                  }
+                    value: "150",
+                  },
+                  {
+                    name: "APP_URL",
+                    value:
+                      "http://unstable-apis.default.svc.cluster.local:8000",
+                  },
                 ],
               },
             ],
@@ -90,6 +95,12 @@ const healthCheck = new k8s.apps.v1.Deployment("health-check", {
           {
             name: "health-check",
             image: "chandbud5/chaos-health:latest",
+            env: [
+              {
+                name: "APP_URL",
+                value: "http://unstable-apis.default.svc.cluster.local:8000",
+              },
+            ],
           },
         ],
       },
