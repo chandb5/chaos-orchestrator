@@ -2,6 +2,8 @@ import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 import * as fs from "fs";
 
+pulumi.log.info("Starting to set up Prometheus and Grafana...");
+
 const configMap = new k8s.core.v1.ConfigMap("prometheus-config", {
   metadata: { name: "prometheus-config" },
   data: {
@@ -71,7 +73,6 @@ const grafanaDeployment = new k8s.apps.v1.Deployment("grafana", {
   },
 });
 
-
 const grafanaService = new k8s.core.v1.Service("grafana-svc", {
   metadata: { name: "grafana" },
   spec: {
@@ -84,3 +85,5 @@ const grafanaService = new k8s.core.v1.Service("grafana-svc", {
     }],
   },
 });
+
+pulumi.log.info("Prometheus and Grafana setup completed.");

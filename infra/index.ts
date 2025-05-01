@@ -2,9 +2,9 @@ import * as k8s from "@pulumi/kubernetes";
 import * as yaml from "@pulumi/kubernetes/yaml";
 import * as pulumi from "@pulumi/pulumi";
 
-// Get configuration
 const appLabels = { app: "chaotic-app" };
 
+pulumi.log.info("Creating Deployment for unstable-apis...");
 const deployment = new k8s.apps.v1.Deployment("unstable-apis", {
   spec: {
     selector: { matchLabels: appLabels },
@@ -23,7 +23,9 @@ const deployment = new k8s.apps.v1.Deployment("unstable-apis", {
     },
   },
 });
+pulumi.log.info("Deployment for unstable-apis created successfully.");
 
+pulumi.log.info("Creating Service for unstable-apis...");
 const service = new k8s.core.v1.Service("unstable-apis-svc", {
   metadata: { name: "unstable-apis" },
   spec: {
@@ -38,7 +40,9 @@ const service = new k8s.core.v1.Service("unstable-apis-svc", {
     ],
   },
 });
+pulumi.log.info("Service for unstable-apis created successfully.");
 
+pulumi.log.info("Creating Chaos CronJob...");
 const chaosCronJob = new k8s.batch.v1.CronJob("chaos-cronjob", {
   metadata: { name: "chaos-cronjob" },
   spec: {
@@ -71,7 +75,9 @@ const chaosCronJob = new k8s.batch.v1.CronJob("chaos-cronjob", {
     },
   },
 });
+pulumi.log.info("Chaos CronJob created successfully.");
 
+pulumi.log.info("Creating Health Check Deployment...");
 const healthCheck = new k8s.apps.v1.Deployment("health-check", {
   metadata: { name: "health-check" },
   spec: {
@@ -89,4 +95,5 @@ const healthCheck = new k8s.apps.v1.Deployment("health-check", {
       },
     },
   },
-})
+});
+pulumi.log.info("Health Check Deployment created successfully.");
