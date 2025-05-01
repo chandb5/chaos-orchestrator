@@ -84,5 +84,3 @@ const grafanaService = new k8s.core.v1.Service("grafana-svc", {
     }],
   },
 });
-
-export const prometheusUrl = prometheusService.status.loadBalancer?.ingress?.[0]?.hostname || "Use: minikube service prometheus --url";

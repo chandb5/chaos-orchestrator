@@ -1,0 +1,7 @@
+FROM python:3.12.10-slim AS base
+
+COPY . .
+
+RUN pip install requests
+
+CMD ["python3", "runner.py"]
