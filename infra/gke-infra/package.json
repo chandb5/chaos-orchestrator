@@ -1,12 +1,11 @@
 {
-    "name": "chaos-orchestra",
+    "name": "gke-stack",
     "main": "index.ts",
     "devDependencies": {
         "@types/node": "^18",
         "typescript": "^5.0.0"
     },
     "dependencies": {
-        "@pulumi/gcp": "^8.29.0",
         "@pulumi/kubernetes": "^4.0.0",
         "@pulumi/kubernetesx": "^0.1.6",
         "@pulumi/pulumi": "^3.113.0"

@@ -1,0 +1,4 @@
+config:
+  gcp:project: chaos-orc
+  gcp:region: us-central1
+  gcp:zone: us-central1-a
