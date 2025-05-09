@@ -2,6 +2,12 @@ import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 import * as fs from "fs";
 
+const gkeStack = new pulumi.StackReference("chandb5/gke-infra/dev");
+const kubeconfig = gkeStack.getOutput("kubeconfig");
+const provider = new k8s.Provider("gke-provider", {
+  kubeconfig: kubeconfig,
+});
+
 pulumi.log.info("Starting to set up Prometheus and Grafana...");
 
 const configMap = new k8s.core.v1.ConfigMap("prometheus-config", {
@@ -9,7 +15,7 @@ const configMap = new k8s.core.v1.ConfigMap("prometheus-config", {
   data: {
     "prometheus.yml": fs.readFileSync("prometheus.yml", "utf8"),
   },
-});
+}, {provider});
 
 const prometheusDeployment = new k8s.apps.v1.Deployment("prometheus", {
   metadata: { name: "prometheus" },
@@ -36,7 +42,7 @@ const prometheusDeployment = new k8s.apps.v1.Deployment("prometheus", {
       },
     },
   },
-});
+}, {provider});
 
 const prometheusService = new k8s.core.v1.Service("prometheus-svc", {
   metadata: { name: "prometheus" },
@@ -49,7 +55,7 @@ const prometheusService = new k8s.core.v1.Service("prometheus-svc", {
       nodePort: 30090,
     }],
   },
-});
+}, {provider});
 
 const grafanaDeployment = new k8s.apps.v1.Deployment("grafana", {
   metadata: { name: "grafana" },
@@ -71,7 +77,7 @@ const grafanaDeployment = new k8s.apps.v1.Deployment("grafana", {
       },
     },
   },
-});
+}, {provider});
 
 const grafanaService = new k8s.core.v1.Service("grafana-svc", {
   metadata: { name: "grafana" },
@@ -84,6 +90,9 @@ const grafanaService = new k8s.core.v1.Service("grafana-svc", {
       nodePort: 30030,
     }],
   },
-});
+}, {provider});
 
 pulumi.log.info("Prometheus and Grafana setup completed.");
+
+export const prometheusUrl = prometheusService.metadata.name.apply(name => `http://${name}:30090`);
+export const grafanaUrl = grafanaService.metadata.name.apply(name => `http://${name}:30030`);
